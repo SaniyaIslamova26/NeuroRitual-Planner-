@@ -1,0 +1,22 @@
+{
+  "name": "NeuroRitual Planner",
+  "short_name": "NeuroRitual",
+  "description": "AI-планнер привычек с PWA, музыкальными ритуалами и тепловыми картами",
+  "lang": "ru",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0b0f17",
+  "theme_color": "#0b0f17",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
