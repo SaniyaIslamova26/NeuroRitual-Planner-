@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroRitual Planner . AI-ритуалы привычек</title>
+    <meta name="theme-color" content="#000f17" id="meta-theme-color">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="icons/icon-192.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body data-theme="dark">
+    <div class="noise-overlay" aria-hidden="true"></div>
+
+    <header class="hero hero-tight">
+        <div class="hero_content">
+            <p class="eyebrow">NeuroRitual Planner . by Исламова Сания</p>
+            <h1>NeuroRitual Planner</h1>
+            <p class="lead">AI-планнер привычек с постоянной ссылкой: сохраняет все ритуалы, синхронизируется через PMA и напоминает на телефоне и ноутбуке.</p>
+            <div class="hero_facts">
+                <div class="fact-card">
+                    <strong>66 дней</strong>
+                    <p>Средний срок закрепления привычки (исследование UCL).</p>
+                </div>
+                <div class="fact-card">
+                    <strong>87%</strong>
+                    <p>Людей поддерживают трекеры привычек, если есть визуальный прогресс.</p>
+                </div>
+                <div class="fact-card fact-card-dynamic" id="habit-facts">Добавьте привычку, и мы покажем персональные инсайты.</div>
+            </div>
+            <ul class="hero_stats hero_stats-compact">
+                <li>
+                    <span class="value">5 лет</span>
+                    <span class="label">глубина истории</span>
+                </li>
+                <li>
+                    <span class="value">2 темы</span>
+                    <span class="label">светлая/тёмная</span>
+                </li>
+                <li>
+                    <span class="value">24/7</span>
+                    <span class="label">музыка + уведомления</span>
+                </li>
+            </ul>
+            <div class="hero_controls">
+                <label class="theme-toggle" for="theme-toggle">
+                    <span>Тема</span>
+                    <div class="switch">
+                        <input type="checkbox" id="theme-toggle" aria-label="Переключить тему" checked>
+                        <span class="switch_slider" data-dark="_data-light="_"></span>
+                    </div>
+                </label>
+                <button class="btn-secondary" id="install-app-btn" type="button">Установить приложение</button>
+            </div>
+        </div>
+        <div class="hero_card hero_card--mini" aria-live="polite">
+            <p class="hero_card-label"> AI-ритуал сегодня</p>
+            <h3 class="hero_card-title" id="hero-plan-title">Задайте привычку – мы создадим стратегию</h3>
+            <p class="hero_card-copy" id="hero-plan-copy">Умный план связывает мотивацию, длительность и частоту практики.</p>
+            <div class="hero_mood" id="hero-plan-mood">Mood: готов к запуску</div>
+        </div>
+    </header>
+
+    <main>
+        <section class="grid grid--dashboard" aria-label="Основные инструменты">
+            <article class="panel panel--micro" aria-labelledby="habit-panel-title">
+                <div class="panel_header">
+                    <div>
+                        <h2 id="habit-panel-title">Привычки</h2>
+                        <p>Мульти-режим, мгновенное переключение.</p>
+                    </div>
+                    <button class="btn-link" type="button" id="delete-habit">Удалить активную</button>
+                </div>
+                <div class="habit-selector">
+                    <label>
+                        Активная привычка
+                        <select id="habit-selector">
+                            <option value="">Нет активных привычек</option>
+                        </select>
+                    </label>
+                </div>
+                <form class="habit-form" id="habit-form">
+                    <div class="form-grid form-grid--dense">
+                        <label>
+                            Название
+                            <input type="text" id="habit-name" name="habitName" placeholder="Утреннее чтение" required>
+                        </label>
+                        <label>
+                            Длительность
+                            <input type="number" id="habit-duration" name="habitDuration" min="5" max="120" value="30" required>
+                        </label>
+                        <label>
+                            Частота/нед
+                            <input type="number" id="habit-frequency" name="habitFrequency" min="1" max="7" value="5" required>
+                        </label>
+                        <label>
+                            Старт
+                            <input type="date" id="habit-start" name="habitStart" required>
+                        </label>
+                    </div>
+                    <label>
+                        Мотивация
+                        <textarea id="habit-motivation" name="habitMotivation" rows="2" placeholder="Зачем вам эта привычка?" required></textarea>
+                    </label>
+                    <button type="submit" class="btn-primary btn-primary-tight">Создать AI-план</button>
+                </form>
+            </article>
+            <article class="panel panel--micro" aria-labelledby="plan-title">
+                <div class="panel__header">
+                    <h2 id="plan-title">AI-план</h2>
+                    <p>3 фазы внедрения.</p>
+                </div>
+                <div class="plan plan--compact" id="plan-details">
+                    <p class="placeholder">Создайте привычку, чтобы увидеть план.</p>
+                </div>
+            </article>
+            <article class="panel panel--micro" aria-labelledby="reminders-title">
+                <div class="panel__header">
+                    <h2 id="reminders-title">Советы</h2>
+                    <p>Поддержка AI.</p>
+                </div>
+                <ul class="reminders reminders--tight" id="reminders-list">
+                    <li class="placeholder">Советы появятся после создания привычки.</li>
+                </ul>
+            </article>
+            <article class="panel panel--micro" aria-labelledby="facts-title">
+                <div class="panel__header">
+                    <h2 id="facts-title">Факты привычек</h2>
+                    <p>Мотивация + глобальные цифры.</p>
+                </div>
+                <div class="habit-facts" id="habit-personal-facts">
+                    <p class="placeholder">Добавьте привычку и узнайте, к чему вы становитесь ближе.</p>
+                </div>
+            </article>
+        </section>
+
+        <section class="grid grid--analytics grid--ultra-tight" aria-label="Прогресс и аналитика">
+            <article class="panel panel--micro" aria-labelledby="progress-title">
+                <div class="panel__header">
+                    <h2 id="progress-title">Трекер</h2>
+                    <p>Мини-календарь прогресса.</p>
+                </div>
+                <span class="badge" id="progress-score">0% готово</span>
+                <div class="progress-layout progress-layout--tight">
+                    <div class="progress-grid progress-grid--dense" id="progress-grid">
+                        <p class="placeholder">Пока нет активных дней.</p>
+                    </div>
+                    <div class="donut-wrapper donut-wrapper--compact">
+                        <canvas id="progress-ring" aria-label="Круговой прогресс" role="img"></canvas>
+                        <p class="donut-caption">Готовность плана</p>
+                    </div>
+                </div>
+            </article>
+            <article class="panel panel--micro" aria-labelledby="insights-title">
+                <div class="panel__header">
+                    <h2 id="insights-title">Динамика</h2>
+                    <p>Мини-график + инсайт.</p>
+                </div>
+                <div class="chart-wrapper chart-wrapper--mini">
+                    <canvas id="progress-chart" aria-label="График прогресса" role="img"></canvas>
+                </div>
+                <div class="insight insight--compact" id="insight-text">Постройте привычку, чтобы увидеть интеллект-граф.</div>
+            </article>
+            <article class="panel panel--micro" aria-labelledby="leaderboard-title">
+                <div class="panel__header">
+                    <h2 id="leaderboard-title">Рейтинг</h2>
+                    <p>Все привычки.</p>
+                </div>
+                <div class="leaderboard leaderboard--compact" id="habit-leaderboard">
+                    <p class="placeholder">Добавьте хотя бы одну привычку, чтобы увидеть рейтинг.</p>
+                </div>
+            </article>
+        </section>
+
+        <section class="grid grid--music" aria-labelledby="music-title">
+            <article class="panel panel--micro">
+                <div class="panel__header">
+                    <div>
+                        <h2 id="music-title">Музыкальные ритуалы</h2>
+                        <p>50 треков релакс/фокус.</p>
+                    </div>
+                    <label class="music-search">
+                        Поиск
+                        <input type="search" id="music-search" placeholder="Например, yoga">
+                    </label>
+                </div>
+                <div class="music-grid music-grid--tight">
+                    <div class="music-card music-card--compact">
+                        <h3>Релакс / Йога</h3>
+                        <label>
+                            Настроение
+                            <select id="relax-playlist"></select>
+                        </label>
+                        <audio id="relax-player" controls preload="none"></audio>
+                    </div>
+                    <div class="music-card music-card--compact">
+                        <h3>Продуктивность / Спорт</h3>
+                        <label>
+                            Энергия
+                            <select id="focus-playlist"></select>
+                        </label>
+                        <audio id="focus-player" controls preload="none"></audio>
+                    </div>
+                </div>
+            </article>
+
+            <article class="panel panel--micro" aria-labelledby="summary-title">
+                <div class="panel__header">
+                    <div>
+                        <h2 id="summary-title">Итоги</h2>
+                        <p>Неделя или месяц.</p>
+                    </div>
+                    <label>
+                        Режим
+                        <select id="summary-period">
+                            <option value="7">Неделя</option>
+                            <option value="30">Месяц</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="summary-metrics summary-metrics--compact" id="summary-metrics">
+                    <p class="placeholder">Начните отмечать прогресс, чтобы увидеть сводку.</p>
+                </div>
+            </article>
+
+            <article class="panel panel--micro" aria-labelledby="settings-title">
+                <div class="panel__header">
+                    <div>
+                        <h2 id="settings-title">Настройки</h2>
+                        <p>Push + сервис.</p>
+                    </div>
+                </div>
+                <div class="settings settings--compact">
+                    <label class="toggle-row toggle-row--compact">
+                        <span>
+                            Push-уведомления
+                            <small id="notification-status">Статус: ожидание разрешения</small>
+                        </span>
+                        <div class="switch switch--mini">
+                            <input type="checkbox" id="notification-toggle" checked>
+                            <span class="switch_slider" data-dark="_" data-light="_"></span>
+                        </div>
+                    </label>
+                    <p class="settings_hint settings_hint--compact">Чтобы получать уведомления на телефоне, установите приложение и закрепите его на домашнем экране.</p>
+                </div>
+            </article>
+        </section>
+    </main>
+
+    <footer>
+        <p>NeuroRitual Planner · by Исламова Сания · трек SELF-DEVELOPMENT & LEARNING</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="app.js" defer></script>
+</body>
+</html>
